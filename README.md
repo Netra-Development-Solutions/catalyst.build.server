@@ -1,1 +1,1 @@
-# Netra-Development-Solutions-catalyst.build.user-management
+# catalyst.build.user-management
