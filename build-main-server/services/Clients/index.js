@@ -17,8 +17,9 @@ async function createClient(req, res) {
             return errorResponse(res, "Can not add client", 400);
         }
 
-        const client = new Client({ name, email, phone, clientCode: generateClientCode() });
-        await client.save();
+        var client = new Client({ name, email, phone, clientCode: generateClientCode(), createdBy: req.user._id});
+        client = await client.save();
+        await client.populate('createdBy')
         return successResponse(res, { client }, "Client created successfully.");
     } catch (error) {
         return errorResponse(res, error, 500);
@@ -29,7 +30,7 @@ async function getClientByCode(req, res) {
     try {
         const clients = await Client.find({
             clientCode: req.params.clientCode
-        });
+        }).populate('createdBy');
         return successResponse(res, { clients }, "Clients fetched successfully.");
     } catch (error) {
         return errorResponse(res, "Invalid request", 400);

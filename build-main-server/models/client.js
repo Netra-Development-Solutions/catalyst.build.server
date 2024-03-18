@@ -32,7 +32,14 @@ const clientSchema = new Schema({
                 required: true
             }
         }
-    ]
+    ],
+    createdBy: {
+        type: Schema.Types.ObjectId,
+        ref: 'Developer',
+        required: true
+    }
+}, {
+    timestamps: true
 });
 
 clientSchema.pre('save', function (next) {
