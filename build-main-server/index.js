@@ -35,9 +35,6 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Authentication middleware
-app.use('/api', authenticateUserMiddleware)
-
 // Create table containg all routes
 var Table = require('cli-table');
 var table = new Table({
@@ -51,6 +48,9 @@ const generateRouters = async (routers) => {
         for (var routeIndex in router.router) {
             const Router = express.Router();
             const route = router.router[routeIndex];
+            if (route.isTokenRequired) {
+                Router.use(authenticateUserMiddleware);
+            }
 
             Router[route.method](route.path, [...route.middlewares], route.controller);
             table.push([route.method, '/api' + router.path + route.path, route.description]);

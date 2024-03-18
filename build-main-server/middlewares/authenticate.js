@@ -5,11 +5,6 @@ const jwt = require('@netra-development-solutions/utils.crypto.jsonwebtoken');
 const authenticateUserMiddleware = async (req, res, next) => {
     // Get whole url from request
     const url = req.originalUrl.split('?')[0];
-
-    // By pass authentication for login route
-    if (url === "/api/user/login/google" || url === "/api/user/login/addDeveloper") {
-        return next();
-    }
     try {
         // Extract token
         const token = req.header('Authorization')?.replace('Bearer ', '')

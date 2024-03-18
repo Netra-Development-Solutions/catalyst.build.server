@@ -15,7 +15,7 @@ const routesConfig = [
         controller: AddDeveloper,
         middlewares: [],
         description: 'Add Developer to the database',
-        isTokenRequired: false
+        isTokenRequired: true
     }
 ];
 
