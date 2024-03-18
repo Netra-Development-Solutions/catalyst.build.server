@@ -1,5 +1,4 @@
-const { AddDeveloper } = require("../services/Developer/AddDeveloper");
-const { GoogleLogin } = require("../services/Developer/GoogleLogin");
+const { GoogleLogin, AddDeveloper } = require("../services/Developer");
 
 const routesConfig = [
     {

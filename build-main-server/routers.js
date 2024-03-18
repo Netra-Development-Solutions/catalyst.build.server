@@ -1,7 +1,7 @@
 const routers = [
     {
         path: '/user/login', // USER LOGIN
-        router: require('./routers/login')
+        router: require('./routers/developer')
     }
 ]
 
