@@ -6,7 +6,11 @@ const routers = [
     {
         path: '/client', // CLIENT
         router: require('./routers/client')
-    }
+    },
+    {
+        path: '/application', // APPLICATION
+        router: require('./routers/application')
+    },
 ]
 
 module.exports = routers;

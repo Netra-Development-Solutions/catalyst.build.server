@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const { generateClientEnvCode } = require('../utils/generateClientCode');
+const { generateClientEnvCode } = require('../utils/generateCodes');
 const envs = require('../constants/enum/env.json');
 
 const clientSchema = new Schema({

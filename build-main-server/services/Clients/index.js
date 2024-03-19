@@ -1,5 +1,5 @@
 const Client = require('../../models/client');
-const { generateClientCode, generateClientEnvCode } = require('../../utils/generateClientCode');
+const { generateClientCode, generateClientEnvCode } = require('../../utils/generateCodes');
 const { successResponse, errorResponse } = require('../../utils/response');
 const envs = require('../../constants/enum/env.json');
 
