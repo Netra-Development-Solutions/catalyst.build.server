@@ -22,6 +22,10 @@ const appSchema = new Schema({
             required: true
         }
     },
+    publishInfo: {
+        type: Schema.Types.ObjectId,
+        ref: 'PublishInfo'
+    },
     env: {
         type: String,
         enum: Object.keys(envs),
