@@ -1,5 +1,4 @@
 const Application = require('../../models/application');
-const Client = require('../../models/client');
 const Localization = require('../../models/localization');
 const { generateGUID } = require('../../utils/generateGUID');
 const { successResponse, errorResponse } = require('../../utils/response');
