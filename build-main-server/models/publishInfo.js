@@ -14,6 +14,11 @@ const publishInfoSchema = new Schema({
         ref: 'Application',
         required: true
     },
+    client: {
+        type: Schema.Types.ObjectId,
+        ref: 'Client',
+        required: true
+    },
     publishVersion: {
         type: String,
         required: true

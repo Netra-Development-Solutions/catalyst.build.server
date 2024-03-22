@@ -8,9 +8,9 @@ const successResponse = (res, data, message) => {
     });
 };
 
-const errorResponse = (res, error, statuscode, data = {}) => {
-    console.log(error)
-    return res.status(statuscode).json(error);
+const errorResponse = (res, error = {}, statuscode = 400, data = {}) => {
+    console.log('error', error);
+    return res.status(statuscode).json({error, data});
 };
 
 module.exports = {
