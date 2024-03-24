@@ -42,7 +42,19 @@ async function GoogleLogin (req, res) {
     }
 };
 
+async function ValidateToken (req, res) {
+    const token = req.header('Authorization').replace('Bearer ', '');
+    if (customJwt.verify(token)) {
+        const decodedData = customJwt.decode(token);
+        delete decodedData.iat;
+        delete decodedData.exp;
+        const newToken = customJwt.sign(decodedData);
+        return successResponse(res, {message: 'Token is valid', token: newToken}, 'Token is valid');
+    }
+};
+
 module.exports = {
     GoogleLogin,
-    AddDeveloper
+    AddDeveloper,
+    ValidateToken
 };

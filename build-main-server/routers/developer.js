@@ -1,4 +1,4 @@
-const { GoogleLogin, AddDeveloper } = require("../services/Developer");
+const { GoogleLogin, AddDeveloper, ValidateToken } = require("../services/Developer");
 
 const routesConfig = [
     {
@@ -15,6 +15,14 @@ const routesConfig = [
         controller: AddDeveloper,
         middlewares: [],
         description: 'Add Developer to the database',
+        isTokenRequired: true
+    },
+    {
+        method: 'get',
+        path: '/validateToken',
+        controller: ValidateToken,
+        middlewares: [],
+        description: 'Validate token',
         isTokenRequired: true
     }
 ];

@@ -171,6 +171,37 @@ async function getLocalizationByLanguage (req, res) {
     }
 }
 
+async function getDraftLocalization (req, res) {
+    try {
+        const application = await Application.findById(req.params.applicationId);
+        if (!application) {
+            return errorResponse(res, 'ApplicationNotFound', 404);
+        }
+        const localizations = await Localization.find({ env: application.env, application: application._id, status: 'DRAFT' });
+        return successResponse(res, localizations, "LocalizationFound");
+    } catch (error) {
+        return errorResponse(res, error, 500);
+    }
+}
+
+async function deleteLocalization (req, res) {
+    try {
+        const localization = await Localization.findById(req.params.localizationId);
+        if (!localization) {
+            return errorResponse(res, 'LocalizationNotFound', 404);
+        }
+        if (localization.status === 'PUBLISHED' || localization.status === 'ARCHIVED') {
+            return errorResponse(res, 'PublishedLocalizationCannotBeDeleted', 400);
+        }
+
+        await localization.deleteOne();
+
+        return successResponse(res, 200, 'LocalizationDeleted');
+    } catch (error) {
+        return errorResponse(res, error, 500);
+    }
+}
+
 module.exports = {
     createNewLocalization,
     createDraftLocalization,
@@ -178,5 +209,7 @@ module.exports = {
     getLocalization,
     getLocalizationByApplicationId,
     updateLocalization,
-    getLocalizationByLanguage
+    getLocalizationByLanguage,
+    deleteLocalization,
+    getDraftLocalization
 };

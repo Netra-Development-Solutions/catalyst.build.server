@@ -1,6 +1,6 @@
 const { applicationIdValidation_Param } = require('../services/Application/applicationIdValidation');
 const { localizationIdValidation_Param } = require('../services/Localization/localizationIdValidation');
-const { createNewLocalization, publishLocalization, createDraftLocalization, getLocalization, getLocalizationByApplicationId, updateLocalization, getLocalizationByLanguage } = require('../services/Localization');
+const { createNewLocalization, publishLocalization, createDraftLocalization, getLocalization, getLocalizationByApplicationId, updateLocalization, getLocalizationByLanguage, deleteLocalization, getDraftLocalization } = require('../services/Localization');
 const { addNewLanguage, getLanguagesByEnv, migrateLanguages } = require('../services/Localization/language');
 
 const routesConfig = [
@@ -81,6 +81,22 @@ const routesConfig = [
         controller: getLocalizationByLanguage,
         middlewares: [applicationIdValidation_Param],
         description: 'Get localization by application id',
+        isTokenRequired: true
+    },
+    {
+        method: 'delete',
+        path: '/:localizationId/delete',
+        controller: deleteLocalization,
+        middlewares: [localizationIdValidation_Param],
+        description: 'Delete localization',
+        isTokenRequired: true
+    },
+    {
+        method: 'get',
+        path: '/:applicationId/getDraft',
+        controller: getDraftLocalization,
+        middlewares: [applicationIdValidation_Param],
+        description: 'Get draft localization',
         isTokenRequired: true
     }
 ];
