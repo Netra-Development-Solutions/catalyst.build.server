@@ -146,11 +146,37 @@ async function updateLocalization (req, res) {
     }
 }
 
+async function getLocalizationByLanguage (req, res) {
+    try {
+        const localization = await Localization.findOne({ env: req.params.env, application: req.params.applicationId, status: 'PUBLISHED' });
+        if (!localization) {
+            return errorResponse(res, 'LocalizationNotFound', 404);
+        }
+        const values = localization.data.filter((data) => {
+            if (data.languageCode === req.params.languageCode) {
+                return data.values;
+            }
+        });
+        if (!values.length) {
+            return errorResponse(res, 'LanguageNotFound', 404);
+        }
+        const localizationData = {};
+        localization.localizationKeys.forEach((key, index) => {
+            console.log(key, values[0].values[index]);
+            localizationData[key] = values[0].values[index];
+        });
+        return successResponse(res, localizationData, "LocalizationFound");
+    } catch (error) {
+        return errorResponse(res, error, 500);
+    }
+}
+
 module.exports = {
     createNewLocalization,
     createDraftLocalization,
     publishLocalization,
     getLocalization,
     getLocalizationByApplicationId,
-    updateLocalization
+    updateLocalization,
+    getLocalizationByLanguage
 };

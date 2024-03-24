@@ -1,6 +1,6 @@
 const { applicationIdValidation_Param } = require('../services/Application/applicationIdValidation');
 const { localizationIdValidation_Param } = require('../services/Localization/localizationIdValidation');
-const { createNewLocalization, publishLocalization, createDraftLocalization, getLocalization, getLocalizationByApplicationId, updateLocalization } = require('../services/Localization');
+const { createNewLocalization, publishLocalization, createDraftLocalization, getLocalization, getLocalizationByApplicationId, updateLocalization, getLocalizationByLanguage } = require('../services/Localization');
 const { addNewLanguage, getLanguagesByEnv, migrateLanguages } = require('../services/Localization/language');
 
 const routesConfig = [
@@ -73,6 +73,14 @@ const routesConfig = [
         controller: updateLocalization,
         middlewares: [localizationIdValidation_Param],
         description: 'Update localization',
+        isTokenRequired: true
+    },
+    {
+        method: 'get',
+        path: '/:applicationId/:env/:languageCode',
+        controller: getLocalizationByLanguage,
+        middlewares: [applicationIdValidation_Param],
+        description: 'Get localization by application id',
         isTokenRequired: true
     }
 ];
