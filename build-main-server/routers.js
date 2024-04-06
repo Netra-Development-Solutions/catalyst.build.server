@@ -14,6 +14,10 @@ const routers = [
     {
         path: '/localization', // LOCALIZATION
         router: require('./routers/localization')
+    },
+    {
+        path: '/publishInfo', // PUBLISH INFO
+        router: require('./routers/publishInfo')
     }
 ]
 

@@ -69,8 +69,25 @@ async function addEnvClient (req, res) {
     }
 }
 
+async function getAllClients(req, res) {
+    try {
+        const search = req?.query?.search || '';
+        if (!search) {
+            const clients = await Client.find({});
+            return successResponse(res, { clients }, "Clients fetched successfully.");
+        }
+        const clients = await Client.find({
+            name: { $regex: search, $options: 'i' }
+        });
+        return successResponse(res, { clients }, "Clients fetched successfully.");
+    } catch (error) {
+        return errorResponse(res, "Invalid request", 400);
+    }
+}
+
 module.exports = {
     createClient,
     getClientByCode,
-    addEnvClient
+    addEnvClient,
+    getAllClients
 }

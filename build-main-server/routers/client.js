@@ -1,4 +1,4 @@
-const { createClient, getClientByCode, addEnvClient } = require("../services/Clients");
+const { createClient, getClientByCode, addEnvClient, getAllClients } = require("../services/Clients");
 
 const routesConfig = [
     {
@@ -7,6 +7,14 @@ const routesConfig = [
         controller: createClient,
         middlewares: [],
         description: 'Create a new client, and add PROD environment by default.',
+        isTokenRequired: true
+    },
+    {
+        method: 'get',
+        path: '/getClients',
+        controller: getAllClients,
+        middlewares: [],
+        description: 'Get all clients',
         isTokenRequired: true
     },
     {

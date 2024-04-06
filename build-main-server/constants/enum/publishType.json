@@ -1,8 +1,14 @@
 {
     "Migration": {
-        "name": "Migrate"
+        "name": "Migration"
     },
-    "Changes": {
-        "name": "Changes"
+    "Update": {
+        "name": "Update"
+    },
+    "Create": {
+        "name": "Create"
+    },
+    "New": {
+        "name": "New"
     }
 }

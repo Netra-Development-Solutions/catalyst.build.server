@@ -31,7 +31,7 @@ async function createNewLocalization (req, res) {
             createdBy: req.user._id
         });
         await localization.save();
-        return successResponse(res, 201, 'LocalizationCreated', localization);
+        return successResponse(res, localization, 'LocalizationCreated');
     } catch (error) {
         return errorResponse(res, error, 500);
     }

@@ -2,6 +2,7 @@ const Application = require('../../models/application');
 const Client = require('../../models/client');
 const { generateAppCode } = require('../../utils/generateCodes');
 const { successResponse, errorResponse } = require('../../utils/response');
+const envs = require('../../constants/enum/env.json');
 
 async function createApplication(req, res) {
     try {
@@ -16,9 +17,14 @@ async function createApplication(req, res) {
             return errorResponse(res, 'Application already exists', 400);
         }
 
-        if (!await Client.findOne({ clientCode })) {
+        const client = await Client.findOne({ clientCode });
+        if (!client) {
             return errorResponse(res, 'Invalid client code', 400);
         }   
+
+        if (!Object.keys(envs).includes(env) || client.envs.findIndex(e => e.env === env) === -1) {
+            return errorResponse(res, 'Invalid environment', 400);
+        }
 
         var application = new Application({
             appName,
@@ -41,11 +47,11 @@ async function createApplication(req, res) {
 async function getApplications(req, res) {
     try {
         const { clientCode, env } = req.query;
-        const applications = await Application.find({
+        const applications = await Application.findOne({
             'client.code': clientCode,
             env
         }).populate('createdBy client.id')
-        return successResponse(res, 'Applications fetched successfully', applications);
+        return successResponse(res, applications, 'Applications fetched successfully');
     } catch (error) {
         return errorResponse(res, error);
     }
