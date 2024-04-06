@@ -1,0 +1,17 @@
+{
+    "Updated": {
+        "name": "Updated"
+    },
+    "Failed": {
+        "name": "Failed"
+    },
+    "Idle": {
+        "name": "Idle"
+    },
+    "Running": {
+        "name": "Running"
+    },
+    "Completed": {
+        "name": "Completed"
+    }
+}
