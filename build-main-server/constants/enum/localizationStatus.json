@@ -1,0 +1,11 @@
+{
+    "DRAFT": {
+        "name": "Draft"
+    },
+    "PUBLISHED": {
+        "name": "Published"
+    },
+    "ARCHIVED": {
+        "name": "Archived"
+    }
+}

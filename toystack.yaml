@@ -1,0 +1,24 @@
+name: Toystack
+version: 1
+env_variables:
+  DB_USER_NAME: postgres
+  DB_NAME: postgres
+  DB_PASSWORD: 123123ADSSD
+  DB_HOST: "localhost"
+  DB_PORT: 5432
+  AWS_S3_BUCKET_STATIC_FILES_BUCKET_KEY: "AASASSASASASAS"
+  AWS_S3_SECRET_KEY_ID_STATIC_FILES: "ASASA!#@!@!@"
+  AWS_S3_BUCKET_URL: "12312312312.cloudfront.net"
+  AWS_S3_BUCKET_NAME: "test-bucket"
+  TOYSTACK_DEPLOYMENTS_DB_USER_NAME: postgres
+  TOYSTACK_DEPLOYMENTS_DB_NAME: postgres
+  TOYSTACK_DEPLOYMENTS_DB_PASSWORD: 123123123123AASSD
+  TOYSTACK_DEPLOYMENTS_DB_HOST: "localhost"
+  TOYSTACK_DEPLOYMENTS_DB_PORT: 5432
+port: 8080
+scheme: https
+build-type: "on-commit"
+domain: demo14072023.toystack.co
+entry-point: "yarn install && yarn start"
+time-to-live: 30
+production: True

@@ -1,0 +1,20 @@
+{
+    "Pending": {
+        "name": "Pending"
+    },
+    "Draft": {
+        "name": "Draft"
+    },
+    "In_Progress": {
+        "name": "In Progress"
+    },
+    "Published": {
+        "name": "Published"
+    },
+    "In_Queue": {
+        "name": "In Queue"
+    },
+    "Failed": {
+        "name": "Failed"
+    }
+}
