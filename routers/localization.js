@@ -1,7 +1,7 @@
 const { applicationIdValidation_Param } = require('../services/Application/applicationIdValidation');
 const { localizationIdValidation_Param } = require('../services/Localization/localizationIdValidation');
 const { createNewLocalization, publishLocalization, createDraftLocalization, getLocalization, getLocalizationByApplicationId, updateLocalization, getLocalizationByLanguage, deleteLocalization, getDraftLocalization } = require('../services/Localization');
-const { addNewLanguage, getLanguagesByEnv, migrateLanguages } = require('../services/Localization/language');
+const { addNewLanguage, getLanguagesByEnv, migrateLanguages } = require('../services/Localization/Language');
 
 const routesConfig = [
     {
