@@ -38,7 +38,12 @@ const UserSchema = new mongoose.Schema({
     },
     secretKey: {
         type: String
-    }
+    },
+    allowedEnvs: [
+        {
+            type: String
+        }
+    ]
 }, {
     timestamps: true
 })
