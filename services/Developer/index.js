@@ -29,7 +29,10 @@ async function GoogleLogin (req, res) {
         
         const developer = await Developer.findOne({email});
         if (developer) {
-            const token = customJwt.sign({email, developerId: developer._id, isAdmin: developer.isAdmin}, process.env['AES_GCM_ENCRYPTION_KEY_' + process.env.NODE_ENV.toUpperCase()], process.env['JWT_TOKEN_SECRET_' + process.env.NODE_ENV.toUpperCase()], process.env['AES_GCM_ENCRYPTION_IV_' + process.env.NODE_ENV.toUpperCase()], '1h');
+            const key = process.env['AES_GCM_ENCRYPTION_KEY'];
+            const iv = process.env['AES_GCM_ENCRYPTION_IV'];
+            const secret = process.env['JWT_TOKEN_SECRET'];
+            const token = customJwt.sign({email, developerId: developer._id, isAdmin: developer.isAdmin}, key, secret, iv, '1h');
             developer.name = `${given_name} ${family_name}`;
             developer.picture = picture;
             developer.save();
@@ -44,9 +47,9 @@ async function GoogleLogin (req, res) {
 
 async function ValidateToken (req, res) {
     const token = req.header('Authorization').replace('Bearer ', '');
-    const key = process.env['AES_GCM_ENCRYPTION_KEY_' + process.env.NODE_ENV.toUpperCase()];
-    const iv = process.env['AES_GCM_ENCRYPTION_IV_' + process.env.NODE_ENV.toUpperCase()];
-    const secret = process.env['JWT_TOKEN_SECRET_' + process.env.NODE_ENV.toUpperCase()];
+    const key = process.env['AES_GCM_ENCRYPTION_KEY'];
+    const iv = process.env['AES_GCM_ENCRYPTION_IV'];
+    const secret = process.env['JWT_TOKEN_SECRET'];
     if (customJwt.verify(token, key, secret, iv)) {
         const decodedData = customJwt.decode(token, key, secret, iv);
         delete decodedData.iat;
