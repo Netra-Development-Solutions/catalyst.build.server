@@ -1,6 +1,6 @@
 const { successResponse, errorResponse } = require('../../utils/response');
 const customJwt = require('@netra-development-solutions/utils.crypto.jsonwebtoken');
-const Developer = require('../../models/developer');
+const Developer = require('../../models/User');
 const jwt = require('jsonwebtoken');
 
 async function AddDeveloper (req, res) {
@@ -29,7 +29,7 @@ async function GoogleLogin (req, res) {
         
         const developer = await Developer.findOne({email});
         if (developer) {
-            const token = customJwt.sign({email, developerId: developer._id, isAdmin: developer.isAdmin});
+            const token = customJwt.sign({email, developerId: developer._id, isAdmin: developer.isAdmin}, process.env['AES_GCM_ENCRYPTION_KEY_' + process.env.NODE_ENV.toUpperCase()], process.env['JWT_TOKEN_SECRET_' + process.env.NODE_ENV.toUpperCase()], process.env['AES_GCM_ENCRYPTION_IV_' + process.env.NODE_ENV.toUpperCase()], '1h');
             developer.name = `${given_name} ${family_name}`;
             developer.picture = picture;
             developer.save();
@@ -44,11 +44,14 @@ async function GoogleLogin (req, res) {
 
 async function ValidateToken (req, res) {
     const token = req.header('Authorization').replace('Bearer ', '');
-    if (customJwt.verify(token)) {
-        const decodedData = customJwt.decode(token);
+    const key = process.env['AES_GCM_ENCRYPTION_KEY_' + process.env.NODE_ENV.toUpperCase()];
+    const iv = process.env['AES_GCM_ENCRYPTION_IV_' + process.env.NODE_ENV.toUpperCase()];
+    const secret = process.env['JWT_TOKEN_SECRET_' + process.env.NODE_ENV.toUpperCase()];
+    if (customJwt.verify(token, key, secret, iv)) {
+        const decodedData = customJwt.decode(token, key, secret, iv);
         delete decodedData.iat;
         delete decodedData.exp;
-        const newToken = customJwt.sign(decodedData);
+        const newToken = customJwt.sign(decodedData, key, secret, iv, '1h');
         return successResponse(res, {message: 'Token is valid', token: newToken}, 'Token is valid');
     }
 };
