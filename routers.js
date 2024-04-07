@@ -18,6 +18,10 @@ const routers = [
     {
         path: '/publishInfo', // PUBLISH INFO
         router: require('./routers/publishInfo')
+    },
+    {
+        path: '/systemUser', // SYSTEM USER
+        router: require('./routers/systemUser')
     }
 ]
 
