@@ -2,10 +2,11 @@ const { successResponse, errorResponse } = require('../../utils/response');
 const customJwt = require('@netra-development-solutions/utils.crypto.jsonwebtoken');
 const User = require('../../models/User');
 const { generateSecretKey } = require('../../utils/generateSecretKey');
+const { userAllowedEnvs } = require('../../utils/userAllowedEnvs');
 
 const addSystemUser = async (req, res) => {
     try {
-        const { username, isServerUser } = req.body;
+        const { username, isServerUser, envs } = req.body;
         if (!username) {
             return errorResponse(res, 'Username is required', 400);
         }
@@ -18,7 +19,8 @@ const addSystemUser = async (req, res) => {
             isServerUser: isServerUser || false,
             secretKey: generateSecretKey(),
             name: username,
-            username
+            username,
+            allowedEnvs: envs.filter(env => userAllowedEnvs(env))
         });
         await newUser.save();
         const token = customJwt.sign({ _id: newUser._id, secretKey: newUser.secretKey }, process.env.AES_GCM_ENCRYPTION_KEY, process.env.JWT_TOKEN_SECRET, process.env.AES_GCM_ENCRYPTION_IV, "1y");
@@ -63,7 +65,11 @@ const generateSystemToken = async (req, res) => {
         }
         user.secretKey = generateSecretKey();
         await user.save();
-        const token = customJwt.sign({ _id: user._id, secretKey: user.secretKey }, process.env.AES_GCM_ENCRYPTION_KEY, process.env.JWT_TOKEN_SECRET, process.env.AES_GCM_ENCRYPTION_IV, "1y");
+        
+        const key = process.env['AES_GCM_ENCRYPTION_KEY'];
+        const iv = process.env['AES_GCM_ENCRYPTION_IV'];
+        const secret = process.env['JWT_TOKEN_SECRET'];
+        const token = customJwt.sign({ _id: user._id, secretKey: user.secretKey }, key, secret, iv, "1y");
         return successResponse(res, { token, user }, "Token generated successfully");
     } catch (error) {
         return errorResponse(res, error.message, 500);
