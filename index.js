@@ -11,7 +11,7 @@ const authenticateUserMiddleware = require('./middlewares/authenticate');
 
 dotenv.config();
 async function fetchServerConfigurations () {
-    const configs = (await axios.get(`${process.env.CONFIG_SERVER_BASE_URL}/api/fetchSystemConfigurations/getSystemConfiguration/${process.env.NODE_ENV.toUpperCase()}`, {
+    const configs = (await axios.get(`${process.env.CONFIG_SERVER_BASE_URL}/api/fetchSystemConfigurations/getSystemConfiguration`, {
         headers: {
             'Authorization': `Bearer ${process.env.SYSTEM_TOKEN}`
         }
