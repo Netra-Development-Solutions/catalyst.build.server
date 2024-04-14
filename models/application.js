@@ -33,7 +33,7 @@ const appSchema = new Schema({
     },
     createdBy: {
         type: Schema.Types.ObjectId,
-        ref: 'Developer'
+        ref: 'User'
     }
 }, {
     timestamps: true
