@@ -80,6 +80,7 @@ const startServer = async () => {
 
         const port = process.env.PORT || 3000;
         if (process.env.NODE_ENV.toLowerCase() === 'dev') {
+            console.log(process.env.IP);
             app.listen(port, process.env.IP || '192.168.29.103', () => {
                 console.clear();
                 console.log(`Server started on port ${port}`);
@@ -93,7 +94,7 @@ const startServer = async () => {
             });
         }
     } catch (err) {
-        console.log(err);
+        console.log(err.message);
     }
 }
 

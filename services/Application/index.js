@@ -10,7 +10,6 @@ async function createApplication(req, res) {
         if (!appName || !clientCode || !env) {
             return errorResponse(res, 'Invalid request', 400);
         }
-        console.log(appName, clientCode, env);
 
         const apps = await Application.find({appName,'client.code': clientCode,env})
         if (apps.length > 0) {

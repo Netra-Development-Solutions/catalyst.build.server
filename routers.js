@@ -22,6 +22,10 @@ const routers = [
     {
         path: '/systemUser', // SYSTEM USER
         router: require('./routers/systemUser')
+    },
+    {
+        path: '/process', // PROCESS
+        router: require('./routers/process')
     }
 ]
 

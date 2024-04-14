@@ -11,9 +11,6 @@ const authenticateUserMiddleware = async (req, res, next) => {
         const key = process.env['AES_GCM_ENCRYPTION_KEY'];
         const iv = process.env['AES_GCM_ENCRYPTION_IV'];
         const secret = process.env['JWT_TOKEN_SECRET'];
-        console.log('key', key)
-        console.log('iv', iv)
-        console.log('secret', secret)
         if (jwt.verify(token, key, secret, iv)) {
             const decoded = jwt.decode(token, key, secret, iv)
             const user = await Developer.findOne({ email: decoded.email })
