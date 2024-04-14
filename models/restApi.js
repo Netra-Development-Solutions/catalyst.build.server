@@ -77,12 +77,12 @@ const restApiSchema = new Schema({
     },
     createdBy: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Developer',
+        ref: 'User',
         required: true
     },
     updatedBy: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Developer'
+        ref: 'User'
     }
 }, {
     timestamps: true
