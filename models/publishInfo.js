@@ -68,7 +68,7 @@ const publishInfoSchema = new Schema({
     modifiedBy: {
         type: Schema.Types.ObjectId,
         required: true,
-        ref: 'Developer'
+        ref: 'User'
     },
     localizationInfo: {
         type: Schema.Types.ObjectId,

@@ -35,7 +35,7 @@ const clientSchema = new Schema({
     ],
     createdBy: {
         type: Schema.Types.ObjectId,
-        ref: 'Developer',
+        ref: 'User',
         required: true
     }
 }, {

@@ -46,7 +46,7 @@ const localizationSchema = new Schema({
     createdBy: {
         type: Schema.Types.ObjectId,
         required: true,
-        ref: 'Developer'
+        ref: 'User'
     }
 }, {
     timestamps: true

@@ -13,7 +13,7 @@ const languageSchema = new Schema({
     },
     createdBy: {
         type: Schema.Types.ObjectId,
-        ref: 'Developer'
+        ref: 'User'
     },
     env: {
         type: String,
